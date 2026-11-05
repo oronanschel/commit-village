@@ -10,6 +10,7 @@ Built with Three.js, Vite and TypeScript. Static build, no backend.
 npm install
 npm run dev      # open the printed URL
 npm run build    # static site in dist/
+npm test         # node:test unit tests (src/**/*.test.ts)
 ```
 
 ## Controls
