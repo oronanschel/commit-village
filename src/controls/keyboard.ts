@@ -33,7 +33,7 @@ export class KeyboardWalker {
     dom.addEventListener('pointerdown', (e) => {
       if (e.pointerType !== 'mouse') return;
       this.dragging = true;
-      this.dragDistance = 0;
+      this.beginPress();
       this.lastX = e.clientX;
       this.lastY = e.clientY;
     });
@@ -41,7 +41,7 @@ export class KeyboardWalker {
       if (!this.dragging) return;
       const dx = e.clientX - this.lastX;
       const dy = e.clientY - this.lastY;
-      this.dragDistance += Math.abs(dx) + Math.abs(dy);
+      this.addDragDistance(Math.abs(dx) + Math.abs(dy));
       this.lastX = e.clientX;
       this.lastY = e.clientY;
       this.look(dx, dy);
@@ -49,9 +49,18 @@ export class KeyboardWalker {
     window.addEventListener('pointerup', () => (this.dragging = false));
   }
 
-  /** True if the last mouse press moved enough to count as a drag rather than a click. */
+  /** True if the last mouse or touch press moved enough to count as a drag rather than a click. */
   get wasDrag(): boolean {
     return this.dragDistance > 5;
+  }
+
+  /** Start tracking a new press; other controllers call this so `wasDrag` covers them too. */
+  beginPress(): void {
+    this.dragDistance = 0;
+  }
+
+  addDragDistance(pixels: number): void {
+    this.dragDistance += pixels;
   }
 
   look(dx: number, dy: number): void {
