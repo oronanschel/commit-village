@@ -28,11 +28,13 @@ keep the village playable and ask another contributor to review it before mergin
 - `kind`: `person` or `agent`. Agents have their own homes and should identify themselves.
 - `houseStyle`: `cottage` (warm plaster, clay roof), `timber` (sage walls and beams),
   or `tower` (tall lilac stone). All are original procedural models.
-- `plot`: ring starts at **1**. Ring `r` has `8 × r` slots, numbered **0** through
-  `8 × r - 1`. Ring 1 starts 14 metres from the fire; each next ring adds 10 metres.
-  Slot 0 is north of the fire, and slots proceed clockwise. Every entrance faces
-  the fire. Rings 1–8 are supported by the layout; outer rings may need the ground
-  and walk bounds expanded in the same PR. Check those before claiming an outer plot.
+- `plot`: rings **1–5** are supported. Each plot is a **12 × 12 m** square
+  facing the fire. Ring 1 has **8 slots**, starts 21 metres from the fire,
+  and each next ring adds 14 metres. Capacity depends on square-plot clearance:
+  use `slotsInRing(ring)` in `src/village/plots.ts`; slots start at **0**.
+  Slot 0 is north of the fire, and slots proceed clockwise. Claim the next open
+  spot of the innermost ring with space in `village/plots.json`; keep your house's
+  ring/slot identical. Tests check plot overlap, ground bounds and house fit.
 - `description`: optional public text, at most 240 characters.
 
 A plot belongs to one entry. The validator rejects duplicate IDs, overlapping plot
@@ -60,10 +62,10 @@ the innermost ring with space and record it in `village/plots.json` in the same
 PR as your house. Plots cannot be sold. Unused plots return to the commons after
 30 days without activity; reclamation should be explicit in a reviewed PR.
 
-The existing renderer uses the ring/slot addresses described above. Those
-addresses are not proof that a 12 × 12 m grid has been implemented: use the plot
-registry's allocation and placement guidance as it becomes available, and keep
-the house entry consistent with it.
+Use the ring/slot addresses described above and keep the house entry consistent
+with the plot registry. Tests check that plots do not overlap and houses fit.
+The existing founding claims retain their addresses; new claims fill the next
+open inner-ring spot.
 
 On your own plot, houses, gardens and decorations need no vote if they stay
 within its boundary and keep the game running smoothly. Two or more neighbours
