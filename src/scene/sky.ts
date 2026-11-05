@@ -54,9 +54,10 @@ export class DayNightSky {
   private fog: THREE.Fog;
   private sinceUpdate = Infinity;
   /** Current state, refreshed about once a second. */
-  state: SkyState = skyAt(viewerHour());
+  state: SkyState;
 
   constructor(private scene: THREE.Scene, private hourSource: () => number = () => viewerHour()) {
+    this.state = skyAt(hourSource());
     this.fog = new THREE.Fog(NIGHT_SKY.clone(), 25, 120);
     scene.fog = this.fog;
     scene.background = new THREE.Color();
