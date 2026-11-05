@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { createGround } from './scene/ground';
 import { createFire } from './scene/fire';
 import { DayNightSky } from './scene/sky';
+import { createAmbientLife, createSmoke } from './scene/ambient';
 import { KeyboardWalker } from './controls/keyboard';
 import { TouchControls } from './controls/touch';
 import { loadContributors } from './village/contributors';
@@ -32,6 +33,14 @@ scene.add(createGround());
 const fire = createFire();
 scene.add(fire.group);
 onTick(fire.update);
+
+const ambient = createAmbientLife();
+const fireSmoke = createSmoke(new THREE.Vector3(0, 1.6, 0), 12, 7);
+scene.add(ambient.group, fireSmoke.group);
+onTick((dt, t) => {
+  ambient.update(dt, t, sky.state.daylight);
+  fireSmoke.update(dt, t, sky.state.daylight);
+});
 
 const walker = new KeyboardWalker(camera, renderer.domElement);
 walker.placeAt(new THREE.Vector3(0, 0, 14), new THREE.Vector3(0, 1, 0));
