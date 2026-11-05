@@ -6,11 +6,20 @@ function hash(x: number, z: number): number {
   return s - Math.floor(s);
 }
 
+const FLAT_RADIUS = 30;
+const HILL_HEIGHT = 9;
+export const GROUND_RADIUS = 90;
+
+/** Smooth terrain height (without the small per-vertex jitter) at a world position. */
+export function terrainHeight(x: number, z: number): number {
+  return THREE.MathUtils.smoothstep(Math.hypot(x, z), FLAT_RADIUS, GROUND_RADIUS) * HILL_HEIGHT;
+}
+
 /**
  * Low-poly ground: a flat clearing around the fire that rises into gentle
  * hills toward the edge, with flat-shaded faces and a few scattered rocks.
  */
-export function createGround(radius = 90): THREE.Group {
+export function createGround(radius = GROUND_RADIUS): THREE.Group {
   const group = new THREE.Group();
 
   const plane = new THREE.PlaneGeometry(radius * 2, radius * 2, 60, 60);
@@ -20,9 +29,8 @@ export function createGround(radius = 90): THREE.Group {
     const x = pos.getX(i);
     const z = pos.getZ(i);
     const d = Math.hypot(x, z);
-    const hill = THREE.MathUtils.smoothstep(d, 30, radius) * 9;
     const jitter = (hash(x, z) - 0.5) * (d < 6 ? 0 : 0.35);
-    pos.setY(i, hill + jitter);
+    pos.setY(i, terrainHeight(x, z) + jitter);
   }
   const ground = new THREE.Mesh(
     plane.toNonIndexed(),
@@ -52,7 +60,9 @@ export function createGround(radius = 90): THREE.Group {
     const rock = new THREE.Mesh(rockGeo, rockMat);
     const sc = 0.4 + hash(i, 3) * 1.2;
     rock.scale.set(sc, sc * 0.7, sc);
-    rock.position.set(Math.cos(a) * d, THREE.MathUtils.smoothstep(d, 30, radius) * 9, Math.sin(a) * d);
+    const rx = Math.cos(a) * d;
+    const rz = Math.sin(a) * d;
+    rock.position.set(rx, terrainHeight(rx, rz), rz);
     rock.rotation.set(hash(i, 4) * 3, hash(i, 5) * 3, 0);
     rock.castShadow = true;
     group.add(rock);

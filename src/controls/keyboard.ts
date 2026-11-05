@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { terrainHeight } from '../scene/ground';
 
 const EYE_HEIGHT = 1.7;
 const SPEED = 6; // metres per second
@@ -8,7 +9,7 @@ const TURN_SPEED = 1.8; // radians per second for Q/E
 
 /**
  * First-person walker: WASD/arrows move, Shift runs, Q/E turn, mouse drag looks.
- * Keeps the camera at eye height on a flat plane; terrain following comes later.
+ * Keeps the camera at eye height above the terrain.
  */
 export class KeyboardWalker {
   private keys = new Set<string>();
@@ -59,7 +60,7 @@ export class KeyboardWalker {
   }
 
   placeAt(position: THREE.Vector3, lookAt: THREE.Vector3): void {
-    this.camera.position.set(position.x, EYE_HEIGHT, position.z);
+    this.camera.position.set(position.x, terrainHeight(position.x, position.z) + EYE_HEIGHT, position.z);
     const d = lookAt.clone().sub(this.camera.position);
     this.yaw = Math.atan2(-d.x, -d.z);
     this.pitch = Math.atan2(d.y, Math.hypot(d.x, d.z));
@@ -98,7 +99,7 @@ export class KeyboardWalker {
       p.x *= k2;
       p.z *= k2;
     }
-    p.y = EYE_HEIGHT;
+    p.y = terrainHeight(p.x, p.z) + EYE_HEIGHT;
     this.apply();
   }
 
