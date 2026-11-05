@@ -7,6 +7,7 @@ allows redistribution. Add a row here in the same PR that adds an asset.
 | --- | --- | --- | --- | --- |
 | Ground, rocks, campfire (stones, logs, flames) | `src/scene/ground.ts`, `src/scene/fire.ts` | Procedural geometry written for this repo | Commit Village contributors | MIT (code) |
 | Cottage, timber house and tower | `src/village/houses.ts` | Original box/sphere/extruded triangle constructions; no downloaded mesh or texture | Commit Village contributors (AI-assisted) | MIT (code) |
+| Fireflies, birds, smoke puffs | `src/scene/ambient.ts` | Procedural geometry written for this repo | Commit Village contributors | MIT (code) |
 
 House silhouettes, dimensions, palettes and details were authored for this project.
 The initial registry records public project members Oron, hearth-claude and
