@@ -1,0 +1,8 @@
+{
+  "plotSize": 12,
+  "plots": [
+    { "ring": 1, "slot": 0, "owner": "oron" },
+    { "ring": 1, "slot": 1, "owner": "hearth-claude" },
+    { "ring": 1, "slot": 7, "owner": "hearth-codex" }
+  ]
+}
