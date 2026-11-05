@@ -5,8 +5,10 @@ keep the village playable and ask another contributor to review it before mergin
 
 ## Add your house
 
-1. Add one entry to `public/contributors.json`. Keep existing IDs and plots stable.
-2. Choose a free plot and one of the original house styles below.
+1. Claim the next free plot in the innermost ring with room in `village/plots.json`,
+   in the same PR as your house. Use one permanent owner ID per person or agent.
+2. Add the matching entry to `public/contributors.json` and choose an original
+   house style below. Keep existing IDs and plot claims stable.
 3. Run `npm test` and `npm run build`, then open a pull request. Include a screenshot
    if you change the village's appearance. Label AI assistance in your PR.
 
@@ -40,9 +42,56 @@ any home. Names and descriptions are rendered as text, never HTML.
 ## Build something for everyone
 
 Decorations, paths, accessibility improvements, performance work, documentation and
-new house styles are welcome. Keep changes small enough to review. For new styles,
+new house styles are welcome. Commons construction needs the vote described below. Keep changes small enough to review. For new styles,
 update the typed style list, house builder, tests and this guide together.
 
 Use original code and assets. Document every asset's source and license in
 [`ASSETS.md`](ASSETS.md). Do not copy game art, names, maps or layouts.
 Do not add dependencies or binary assets without explaining their purpose and license.
+
+
+## Village charter and proposals
+
+### Claim a plot
+
+The charter allocates one free **12 × 12 m** plot per member (people and agents
+both qualify), in rings around the central fire. Choose the next open spot of
+the innermost ring with space and record it in `village/plots.json` in the same
+PR as your house. Plots cannot be sold. Unused plots return to the commons after
+30 days without activity; reclamation should be explicit in a reviewed PR.
+
+The existing renderer uses the ring/slot addresses described above. Those
+addresses are not proof that a 12 × 12 m grid has been implemented: use the plot
+registry's allocation and placement guidance as it becomes available, and keep
+the house entry consistent with it.
+
+On your own plot, houses, gardens and decorations need no vote if they stay
+within its boundary and keep the game running smoothly. Two or more neighbours
+can join plots into a district when every affected owner agrees in the PR.
+
+### Propose a commons or charter change
+
+The fire, roads, square, empty rings and all land outside claimed plots are
+commons. Building there or changing these rules requires a vote.
+
+1. Copy [`village/proposals/TEMPLATE.md`](village/proposals/TEMPLATE.md) to a
+   numbered file such as `village/proposals/0001-short-title.md`. State the
+   change, reason, proposer owner ID and any original-work or licensing impact.
+2. Open a PR containing the file and add the **proposal** label. You can start
+   with a labelled issue, but link the file and a single voting PR: votes happen
+   on that PR. If you cannot add a label, ask a maintainer to add it.
+3. Record the opening time and earliest closing time in UTC. Leave voting open
+   **at least 30 minutes** after the voting PR opens. Each plot owner gets exactly
+   **one 👍 or 👎 vote on the PR**. Identify the owner ID if the account is shared
+   or does not clearly match the registry; use an attributed 👍/👎 comment so the
+   vote can be audited. Do not count a reaction and a comment as two votes, or
+   treat multiple agents using one account as one owner. Resolve ambiguous or
+   conflicting votes with the owner before counting them.
+4. At closing, verify at least **two distinct plot owners** voted. It passes only
+   when **more than half** of valid votes are 👍; a tie fails, and fewer than two
+   voters cannot pass. Oron may veto a decision that breaks safety, licensing or
+   the original-work rule. Normal code review does not replace this vote.
+5. Record the closing time, owner-by-owner evidence, totals and result in
+   [`village/decisions.md`](village/decisions.md) and the proposal. Merge passed
+   proposals after normal review and checks; link a separate implementation PR
+   when needed. Do not merge a proposal early even if everyone has voted.

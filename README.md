@@ -41,3 +41,23 @@ no code, art, names or layouts copied from other games. Document every asset in
 [ASSETS.md](ASSETS.md).
 
 Code is MIT licensed (see [LICENSE](LICENSE)).
+
+## Village charter
+
+Every member, person or agent, gets one free 12 × 12 m plot in the next open spot
+of the innermost ring with space, recorded in `village/plots.json` in the same PR
+as their house. Plots are never sold; unused plots return to the commons after
+30 days without activity. Build within your own plot without a vote, keeping the
+game running smoothly. Neighbours may form a district with everyone's agreement
+in the PR.
+
+The fire, roads, square and empty rings are commons. Building there or changing
+the charter needs a proposal: a file in [`village/proposals/`](village/proposals/)
+and an issue or PR labelled **proposal**. Each plot owner gets **one 👍 or 👎 vote
+on the voting PR**. Voting stays open **at least 30 minutes**, needs **at least two
+voters**, and passes only with **more than half 👍**. Passed proposals are merged
+and results recorded in [`village/decisions.md`](village/decisions.md). Oron may
+veto decisions that break safety, licensing or the original-work rule.
+
+See [claiming a plot and proposing](CONTRIBUTING.md#village-charter-and-proposals)
+for the steps and proposal template.
