@@ -51,7 +51,9 @@ export class TouchControls {
 
   private down(e: PointerEvent): void {
     if (e.pointerType === 'mouse') return;
-    this.walker.beginPress();
+    // Only the first finger of a gesture starts a new press, so a second finger
+    // can't clear the drag state of a joystick that is still held.
+    if (this.joyId === null && this.looks.size === 0) this.walker.beginPress();
     if (this.joyId === null && isJoystickZone(e.clientX, e.clientY, window.innerWidth, window.innerHeight)) {
       this.joyId = e.pointerId;
       this.joyX = e.clientX;
