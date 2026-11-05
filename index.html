@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commit Village</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #05070d; }
+      canvas { display: block; touch-action: none; }
+      #hud {
+        position: fixed; left: 12px; bottom: 12px; color: #e8dcc0;
+        font: 13px/1.4 system-ui, sans-serif; opacity: 0.75; pointer-events: none;
+        text-shadow: 0 1px 2px #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">WASD / arrows to walk · drag to look</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
