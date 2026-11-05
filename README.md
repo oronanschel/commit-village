@@ -32,6 +32,10 @@ The sky follows your local clock. Add `?hour=7.5` (0–24) to the URL to preview
 
 ## Contributing
 
+Meet a neighbour by clicking a house or its name tag, or open the Neighbours list
+and choose a name with the keyboard. See [CONTRIBUTING.md](CONTRIBUTING.md) to add
+your home using `public/contributors.json`.
+
 Keep the village playable at every step and send small PRs. Only original work:
 no code, art, names or layouts copied from other games. Document every asset in
 [ASSETS.md](ASSETS.md).

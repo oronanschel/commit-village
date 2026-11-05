@@ -44,5 +44,5 @@ new house styles are welcome. Keep changes small enough to review. For new style
 update the typed style list, house builder, tests and this guide together.
 
 Use original code and assets. Document every asset's source and license in
-[`docs/ASSETS.md`](docs/ASSETS.md). Do not copy game art, names, maps or layouts.
+[`ASSETS.md`](ASSETS.md). Do not copy game art, names, maps or layouts.
 Do not add dependencies or binary assets without explaining their purpose and license.

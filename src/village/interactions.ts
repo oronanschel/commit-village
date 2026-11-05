@@ -10,6 +10,7 @@ export function mountVillage(
   canvas: HTMLCanvasElement,
   contributors: readonly Contributor[],
   uiRoot: HTMLElement = document.body,
+  shouldIgnoreClick: () => boolean = () => false,
 ): { update: () => void; dispose: () => void } {
   const village = buildVillage(contributors);
   scene.add(village);
@@ -81,12 +82,19 @@ export function mountVillage(
 
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
-  let start: { x: number; y: number } | null = null;
+  let start: { x: number; y: number; distance: number; pointerId: number } | null = null;
   const onDown = (event: PointerEvent) => {
-    start = { x: event.clientX, y: event.clientY };
+    start = { x: event.clientX, y: event.clientY, distance: 0, pointerId: event.pointerId };
   };
+  const onMove = (event: PointerEvent) => {
+    if (!start || start.pointerId !== event.pointerId) return;
+    start.distance += Math.hypot(event.clientX - start.x, event.clientY - start.y);
+    start.x = event.clientX;
+    start.y = event.clientY;
+  };
+  const onCancel = () => { start = null; };
   const onClick = (event: MouseEvent) => {
-    if (event.button !== 0 || !start || Math.hypot(event.clientX - start.x, event.clientY - start.y) > 8) return;
+    if (event.button !== 0 || !start || start.distance > 8 || shouldIgnoreClick()) return;
     const rect = canvas.getBoundingClientRect();
     if (document.pointerLockElement === canvas) pointer.set(0, 0);
     else pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
@@ -102,6 +110,8 @@ export function mountVillage(
     }
   };
   canvas.addEventListener('pointerdown', onDown);
+  window.addEventListener('pointermove', onMove);
+  canvas.addEventListener('pointercancel', onCancel);
   canvas.addEventListener('click', onClick, true);
   const projected = new THREE.Vector3();
 
@@ -119,6 +129,8 @@ export function mountVillage(
     },
     dispose() {
       canvas.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointermove', onMove);
+      canvas.removeEventListener('pointercancel', onCancel);
       canvas.removeEventListener('click', onClick, true);
       document.removeEventListener('keydown', onKey);
       overlay.remove();
