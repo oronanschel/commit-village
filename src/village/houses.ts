@@ -68,16 +68,20 @@ export function createHouse(contributor: Contributor): THREE.Group {
     box(0.65, 0.7, 0.14, glass, 0, 3.6, 1.88);
   }
   house.userData.labelHeight = height + 2.8;
+  house.userData.chimneyTop = new THREE.Vector3(1.1, height + 2.25, -0.8);
   return house;
 }
 
-export function buildVillage(contributors: readonly Contributor[]): THREE.Group {
+export function buildVillage(
+  contributors: readonly Contributor[],
+  groundHeight: (x: number, z: number) => number = () => 0,
+): THREE.Group {
   const village = new THREE.Group();
   village.name = 'village-houses';
   for (const contributor of contributors) {
     const house = createHouse(contributor);
     const plot = plotTransform(contributor.plot);
-    house.position.set(plot.x, 0, plot.z);
+    house.position.set(plot.x, groundHeight(plot.x, plot.z), plot.z);
     house.rotation.y = plot.rotation;
     village.add(house);
   }

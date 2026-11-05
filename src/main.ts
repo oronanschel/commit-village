@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { createGround } from './scene/ground';
+import { createGround, terrainHeight } from './scene/ground';
 import { createFire } from './scene/fire';
 import { DayNightSky } from './scene/sky';
 import { KeyboardWalker } from './controls/keyboard';
@@ -34,7 +34,7 @@ scene.add(fire.group);
 onTick(fire.update);
 
 const walker = new KeyboardWalker(camera, renderer.domElement);
-walker.placeAt(new THREE.Vector3(0, 0, 14), new THREE.Vector3(0, 1, 0));
+walker.placeAt(new THREE.Vector3(0, 0, 10), new THREE.Vector3(0, 1, 0));
 onTick((dt) => walker.update(dt));
 new TouchControls(walker, renderer.domElement);
 
@@ -44,7 +44,10 @@ if (window.matchMedia('(pointer: coarse)').matches) {
 }
 
 loadContributors().then(contributors => {
-  const village = mountVillage(scene, camera, renderer.domElement, contributors, document.body, () => walker.wasDrag);
+  const village = mountVillage(scene, camera, renderer.domElement, contributors, {
+    shouldIgnoreClick: () => walker.wasDrag,
+    groundHeight: terrainHeight,
+  });
   onTick(village.update);
 }).catch(error => {
   console.error('Village houses could not load:', error);

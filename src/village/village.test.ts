@@ -62,6 +62,11 @@ test('registry reordering never moves a house', () => {
   for (const [name, point] of first) assert.deepEqual(reversed.get(name), point);
 });
 
+test('houses follow the supplied terrain height on outer plots', () => {
+  const village = buildVillage([{ ...example, plot: { ring: 4, slot: 6 } }], (x, z) => Math.hypot(x, z) / 10);
+  assert.ok(Math.abs(village.children[0].position.y - 4.4) < 1e-9);
+});
+
 test('every original style builds finite geometry above ground with owner metadata', () => {
   for (const houseStyle of HOUSE_STYLES) {
     const owner = { ...example, houseStyle };

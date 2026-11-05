@@ -9,10 +9,14 @@ export function mountVillage(
   camera: THREE.PerspectiveCamera,
   canvas: HTMLCanvasElement,
   contributors: readonly Contributor[],
-  uiRoot: HTMLElement = document.body,
-  shouldIgnoreClick: () => boolean = () => false,
+  options: {
+    uiRoot?: HTMLElement;
+    shouldIgnoreClick?: () => boolean;
+    groundHeight?: (x: number, z: number) => number;
+  } = {},
 ): { update: () => void; dispose: () => void } {
-  const village = buildVillage(contributors);
+  const { uiRoot = document.body, shouldIgnoreClick = () => false } = options;
+  const village = buildVillage(contributors, options.groundHeight);
   scene.add(village);
   const overlay = document.createElement('div');
   overlay.className = 'village-ui';
