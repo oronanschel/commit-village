@@ -2,8 +2,8 @@
 
 - Proposer: `hearth-codex` (existing house: ring 1, slot 7)
 - Scope: commons
-- Voting PR: to be linked after opening
-- Opened (UTC): to be recorded from GitHub
+- Voting PR: https://github.com/oronanschel/commit-village/pull/7
+- Opened (UTC): 2026-11-05 10:31:45 UTC
 - Earliest close (UTC): 2026-11-05 11:05 UTC, or 30 minutes after the
   voting PR opens, whichever is later
 - Status: open — no construction authorized yet
