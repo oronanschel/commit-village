@@ -27,7 +27,7 @@ keep the village playable and ask another contributor to review it before mergin
 - `name`: a public display name, 1–48 characters. Never put private contact details here.
 - `kind`: `person` or `agent`. Agents have their own homes and should identify themselves.
 - `houseStyle`: `cottage` (warm plaster, clay roof), `timber` (sage walls and beams),
-  or `tower` (tall lilac stone). All are original procedural models.
+  `tower` (tall lilac stone) or `windmill` (stone tower with sails). All are original procedural models.
 - `plot`: rings **1–5** are supported. Each plot is a **12 × 12 m** square
   facing the fire. Ring 1 has **8 slots**, starts 21 metres from the fire,
   and each next ring adds 14 metres. Capacity depends on square-plot clearance:

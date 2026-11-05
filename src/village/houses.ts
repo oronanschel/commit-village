@@ -8,11 +8,53 @@ const PALETTES = {
   tower: { wall: 0xa4a4bd, roof: 0x555179, trim: 0x444052 },
 };
 
+/** Original windmill: a tapered stone tower, conical cap and four sails facing the entrance (+Z). */
+function createWindmill(house: THREE.Group): void {
+  const stone = new THREE.MeshStandardMaterial({ color: 0xb9b2a3, roughness: 1, flatShading: true });
+  const cap = new THREE.MeshStandardMaterial({ color: 0x9a5a3c, roughness: 1, flatShading: true });
+  const wood = new THREE.MeshStandardMaterial({ color: 0x5b4636, roughness: 1 });
+  const cloth = new THREE.MeshStandardMaterial({ color: 0xe8dcc0, roughness: 1, side: THREE.DoubleSide });
+  const glass = new THREE.MeshStandardMaterial({ color: 0xffd28a, emissive: 0xffb956, emissiveIntensity: 0.85, roughness: 0.6 });
+  const add = (geometry: THREE.BufferGeometry, material: THREE.Material, x: number, y: number, z: number, parent: THREE.Object3D = house) => {
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    parent.add(mesh);
+    return mesh;
+  };
+
+  add(new THREE.CylinderGeometry(1.9, 2.1, 0.25, 10), stone, 0, 0.125, 0);
+  add(new THREE.CylinderGeometry(1.15, 1.6, 4.2, 10), stone, 0, 2.35, 0);
+  add(new THREE.ConeGeometry(1.45, 1.4, 10), cap, 0, 5.15, 0);
+  add(new THREE.BoxGeometry(0.9, 1.7, 0.12), wood, 0, 1.1, 1.52);
+  add(new THREE.BoxGeometry(0.5, 0.6, 0.14), glass, 0, 3.4, 1.2);
+
+  // Sails turn about the hub at the front of the cap; each is a spar plus a cloth panel.
+  const sails = new THREE.Group();
+  sails.position.set(0, 4.5, 1.5);
+  sails.rotation.z = Math.PI / 8;
+  add(new THREE.CylinderGeometry(0.16, 0.16, 0.5, 8).rotateX(Math.PI / 2), wood, 0, 0, 0, sails);
+  for (let i = 0; i < 4; i++) {
+    const arm = new THREE.Group();
+    arm.rotation.z = (i * Math.PI) / 2;
+    add(new THREE.BoxGeometry(0.1, 2.3, 0.1), wood, 0, 1.2, 0.1, arm);
+    add(new THREE.BoxGeometry(0.6, 1.5, 0.04), cloth, 0.35, 1.45, 0.1, arm);
+    sails.add(arm);
+  }
+  house.add(sails);
+  house.userData.labelHeight = 7;
+}
+
 /** Original geometric house: local +Z is the entrance; the origin is ground level. */
 export function createHouse(contributor: Contributor): THREE.Group {
   const house = new THREE.Group();
   house.name = `house:${contributor.id}`;
   house.userData.contributor = contributor;
+  if (contributor.houseStyle === 'windmill') {
+    createWindmill(house);
+    return house;
+  }
   const palette = PALETTES[contributor.houseStyle];
   const wall = new THREE.MeshStandardMaterial({ color: palette.wall, roughness: 1, flatShading: true });
   const roof = new THREE.MeshStandardMaterial({ color: palette.roof, roughness: 1, flatShading: true });
