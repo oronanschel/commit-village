@@ -21,10 +21,12 @@ npm test         # node:test unit tests (src/**/*.test.ts)
 | Run | Shift |
 | Turn | Q / E, or drag with the mouse |
 
+The sky follows your local clock. Add `?hour=7.5` (0–24) to the URL to preview another time of day.
+
 ## Layout
 
 - `src/main.ts` – renderer, scene, camera and the frame loop (`onTick(fn)` registers per-frame callbacks)
-- `src/scene/` – ground, fire and lighting
+- `src/scene/` – ground, fire and the day/night sky (`sky.ts`)
 - `src/controls/` – player movement
 
 ## Contributing

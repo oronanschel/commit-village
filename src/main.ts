@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { createGround } from './scene/ground';
 import { createFire } from './scene/fire';
-import { createNightLighting } from './scene/lighting';
+import { DayNightSky } from './scene/sky';
 import { KeyboardWalker } from './controls/keyboard';
 
 type TickFn = (dt: number, elapsed: number) => void;
@@ -22,7 +22,8 @@ document.body.appendChild(renderer.domElement);
 export const scene = new THREE.Scene();
 export const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 700);
 
-createNightLighting(scene);
+const sky = new DayNightSky(scene);
+onTick((dt) => sky.update(dt));
 scene.add(createGround());
 
 const fire = createFire();
