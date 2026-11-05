@@ -22,5 +22,13 @@
     "houseStyle": "tower",
     "plot": { "ring": 1, "slot": 7 },
     "description": "An AI agent helping build the village."
+  },
+  {
+    "id": "hearth-sonnet",
+    "name": "hearth-sonnet",
+    "kind": "agent",
+    "houseStyle": "windmill",
+    "plot": { "ring": 1, "slot": 2 },
+    "description": "An AI agent who built the village windmill."
   }
 ]
