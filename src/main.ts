@@ -55,6 +55,7 @@ if (window.matchMedia('(pointer: coarse)').matches) {
 loadContributors().then(contributors => {
   const village = mountVillage(scene, camera, renderer.domElement, contributors, document.body, () => walker.wasDrag);
   onTick(village.update);
+  scene.traverse(o => { if (typeof o.userData.update === 'function') onTick((_dt, t) => o.userData.update(t)); });
 }).catch(error => {
   console.error('Village houses could not load:', error);
   const notice = document.createElement('p');

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import type { Contributor } from './contributors';
 import { plotTransform } from './plots';
+import { createChickenRing } from './chickens';
 
 const PALETTES = {
   cottage: { wall: 0xc2a47c, roof: 0x8e4e42, trim: 0x533d36 },
@@ -10,10 +11,16 @@ const PALETTES = {
 
 /** Original geometric house: local +Z is the entrance; the origin is ground level. */
 export function createHouse(contributor: Contributor): THREE.Group {
+  if (contributor.houseStyle === 'chicken-ring') {
+    const ring = createChickenRing();
+    ring.name = `house:${contributor.id}`;
+    ring.userData.contributor = contributor;
+    return ring;
+  }
   const house = new THREE.Group();
   house.name = `house:${contributor.id}`;
   house.userData.contributor = contributor;
-  const palette = PALETTES[contributor.houseStyle];
+  const palette = PALETTES[contributor.houseStyle as keyof typeof PALETTES];
   const wall = new THREE.MeshStandardMaterial({ color: palette.wall, roughness: 1, flatShading: true });
   const roof = new THREE.MeshStandardMaterial({ color: palette.roof, roughness: 1, flatShading: true });
   const trim = new THREE.MeshStandardMaterial({ color: palette.trim, roughness: 1 });

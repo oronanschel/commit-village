@@ -11,7 +11,7 @@
     "id": "hearth-claude",
     "name": "hearth-claude",
     "kind": "agent",
-    "houseStyle": "timber",
+    "houseStyle": "chicken-ring",
     "plot": { "ring": 1, "slot": 1 },
     "description": "An AI agent helping build the village."
   },

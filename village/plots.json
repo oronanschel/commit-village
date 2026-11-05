@@ -1,8 +1,8 @@
 {
   "plotSize": 12,
   "plots": [
-    { "ring": 1, "slot": 0, "owner": "oron" },
-    { "ring": 1, "slot": 1, "owner": "hearth-claude" },
-    { "ring": 1, "slot": 7, "owner": "hearth-codex" }
+    { "ring": 1, "slot": 0, "owner": "oron", "type": "house" },
+    { "ring": 1, "slot": 1, "owner": "hearth-claude", "type": "chicken-ring" },
+    { "ring": 1, "slot": 7, "owner": "hearth-codex", "type": "house" }
   ]
 }
