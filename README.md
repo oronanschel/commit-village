@@ -20,6 +20,7 @@ npm test         # node:test unit tests (src/**/*.test.ts)
 | Walk | W A S D or arrow keys |
 | Run | Shift |
 | Turn | Q / E, or drag with the mouse |
+| Touch | Left thumb (lower-left) walks with a joystick, drag elsewhere to look |
 
 The sky follows your local clock. Add `?hour=7.5` (0–24) to the URL to preview another time of day.
 

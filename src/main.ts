@@ -3,6 +3,7 @@ import { createGround } from './scene/ground';
 import { createFire } from './scene/fire';
 import { DayNightSky } from './scene/sky';
 import { KeyboardWalker } from './controls/keyboard';
+import { TouchControls } from './controls/touch';
 
 type TickFn = (dt: number, elapsed: number) => void;
 const tickers: TickFn[] = [];
@@ -33,6 +34,12 @@ onTick(fire.update);
 const walker = new KeyboardWalker(camera, renderer.domElement);
 walker.placeAt(new THREE.Vector3(0, 0, 14), new THREE.Vector3(0, 1, 0));
 onTick((dt) => walker.update(dt));
+new TouchControls(walker, renderer.domElement);
+
+if (window.matchMedia('(pointer: coarse)').matches) {
+  const hud = document.getElementById('hud');
+  if (hud) hud.textContent = 'Left thumb to walk · drag to look';
+}
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
