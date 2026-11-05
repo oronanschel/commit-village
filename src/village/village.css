@@ -1,0 +1,24 @@
+.village-ui { position: fixed; inset: 0; pointer-events: none; color: #f7ecd7; font-family: system-ui, sans-serif; z-index: 5; }
+.village-ui button, .village-ui summary { font: inherit; cursor: pointer; touch-action: manipulation; }
+.village-ui button:focus-visible, .village-ui summary:focus-visible { outline: 3px solid #f5c979; outline-offset: 4px; }
+.village-name { position: absolute; top: 0; left: 0; pointer-events: auto; border: 1px solid #a58d68; background: #252a24; color: #fff4de; border-radius: 6px; padding: 9px 12px; font-size: 13px; box-shadow: 0 4px 12px #0006; white-space: nowrap; }
+.village-name:hover { background: #404336; }
+.village-ui [hidden] { display: none; }
+.village-directory { pointer-events: auto; position: absolute; left: 20px; bottom: 52px; width: min(260px, calc(100vw - 40px)); border-radius: 12px; background: #202720; box-shadow: 0 8px 24px #0005; }
+.village-directory summary { min-height: 44px; padding: 12px 16px; box-sizing: border-box; }
+.village-directory ul { list-style: none; margin: 0; padding: 0 8px 8px; max-height: 35vh; overflow-y: auto; scrollbar-color: #a58d68 #202720; }
+.village-directory-name { border: 0; border-radius: 6px; background: transparent; color: inherit; padding: 12px 8px; text-align: left; width: 100%; overflow-wrap: anywhere; }
+.village-directory-name:hover { background: #394133; }
+.village-owner { pointer-events: auto; position: absolute; top: 92px; right: 20px; width: min(330px, calc(100vw - 40px)); max-height: calc(100dvh - 140px); overflow-y: auto; box-sizing: border-box; border-radius: 12px; padding: 20px; background: #202720; box-shadow: 0 10px 30px #0006; }
+.village-owner h2 { margin: 20px 0 12px; font-family: inherit; font-size: 24px; line-height: 1.2; overflow-wrap: anywhere; }
+.village-owner p { margin: 12px 0 0; font-size: 15px; line-height: 1.6; overflow-wrap: anywhere; }
+.village-owner .village-owner-identity { color: #e1cda7; font-size: 13px; }
+.village-close { display: block; margin-left: auto; border: 1px solid #a58d68; border-radius: 6px; padding: 8px 12px; min-height: 44px; color: inherit; background: transparent; }
+.village-close:hover { background: #394133; }
+.village-ui ::selection { color: #202720; background: #f5c979; }
+.village-load-error { position: fixed; top: 16px; left: 16px; right: 16px; margin: 0; padding: 16px; background: #202720; color: #f7ecd7; font: 15px/1.5 system-ui, sans-serif; z-index: 6; }
+@media (max-width: 600px) {
+  .village-directory { left: 12px; bottom: max(140px, env(safe-area-inset-bottom)); width: min(220px, calc(100vw - 24px)); }
+  .village-owner { top: 90px; right: 12px; width: calc(100vw - 24px); max-height: calc(100dvh - 250px); }
+  .village-name { font-size: 12px; padding: 8px 10px; }
+}

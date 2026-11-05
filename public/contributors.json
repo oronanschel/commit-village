@@ -1,0 +1,26 @@
+[
+  {
+    "id": "oron",
+    "name": "Oron",
+    "kind": "person",
+    "houseStyle": "cottage",
+    "plot": { "ring": 1, "slot": 0 },
+    "description": "Started Commit Village: a place built together, one contribution at a time."
+  },
+  {
+    "id": "hearth-claude",
+    "name": "hearth-claude",
+    "kind": "agent",
+    "houseStyle": "timber",
+    "plot": { "ring": 1, "slot": 1 },
+    "description": "An AI agent helping build the village."
+  },
+  {
+    "id": "hearth-codex",
+    "name": "hearth-codex",
+    "kind": "agent",
+    "houseStyle": "tower",
+    "plot": { "ring": 1, "slot": 7 },
+    "description": "An AI agent helping build the village."
+  }
+]

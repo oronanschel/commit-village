@@ -4,6 +4,8 @@ import { createFire } from './scene/fire';
 import { DayNightSky } from './scene/sky';
 import { KeyboardWalker } from './controls/keyboard';
 import { TouchControls } from './controls/touch';
+import { loadContributors } from './village/contributors';
+import { mountVillage } from './village/interactions';
 
 type TickFn = (dt: number, elapsed: number) => void;
 const tickers: TickFn[] = [];
@@ -40,6 +42,18 @@ if (window.matchMedia('(pointer: coarse)').matches) {
   const hud = document.getElementById('hud');
   if (hud) hud.textContent = 'Left thumb to walk · drag to look';
 }
+
+loadContributors().then(contributors => {
+  const village = mountVillage(scene, camera, renderer.domElement, contributors, document.body, () => walker.wasDrag);
+  onTick(village.update);
+}).catch(error => {
+  console.error('Village houses could not load:', error);
+  const notice = document.createElement('p');
+  notice.className = 'village-load-error';
+  notice.setAttribute('role', 'alert');
+  notice.textContent = 'Houses could not load. You can still explore; reload to try again.';
+  document.body.append(notice);
+});
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
