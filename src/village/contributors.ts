@@ -1,6 +1,6 @@
 import { plotTransform, type Plot } from './plots';
 
-export const HOUSE_STYLES = ['cottage', 'timber', 'tower'] as const;
+export const HOUSE_STYLES = ['cottage', 'timber', 'tower', 'chicken-ring'] as const;
 export type HouseStyle = typeof HOUSE_STYLES[number];
 export interface Contributor {
   id: string;

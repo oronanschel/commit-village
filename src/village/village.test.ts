@@ -70,7 +70,7 @@ test('every original style builds finite geometry above ground with owner metada
     const bounds = new THREE.Box3().setFromObject(house);
     assert.ok(bounds.min.y >= -0.001);
     assert.ok(bounds.max.y < house.userData.labelHeight);
-    assert.ok(bounds.max.x - bounds.min.x <= 5);
+    assert.ok(bounds.max.x - bounds.min.x <= (houseStyle === 'chicken-ring' ? 12 : 5));
     house.traverse(object => {
       if (!(object instanceof THREE.Mesh)) return;
       const position = object.geometry.getAttribute('position');
